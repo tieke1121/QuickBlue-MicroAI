@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Select Java only for this command; never source this file into the shell.
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export JAVA_HOME="${PROJECT_JAVA_HOME:-$repo_root/.local/jdk-21}"
+if [[ ! -x "$JAVA_HOME/bin/java" || ! -x "$JAVA_HOME/bin/javac" ]]; then
+  echo "JDK 21 missing: set PROJECT_JAVA_HOME or install at .local/jdk-21 (see docs/build-baseline.md)." >&2
+  exit 2
+fi
+version="$("$JAVA_HOME/bin/java" -version 2>&1)"
+if [[ ! "$version" =~ version\ \"21[\.\"] ]]; then
+  echo "Expected JDK 21 at $JAVA_HOME; refusing to use another major version." >&2
+  exit 2
+fi
+if [[ $# -eq 0 ]]; then
+  echo "Usage: scripts/java21 <command> [args...]" >&2
+  exit 2
+fi
+export PATH="$JAVA_HOME/bin:$PATH"
+exec "$@"

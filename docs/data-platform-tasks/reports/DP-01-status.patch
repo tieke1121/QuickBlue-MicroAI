@@ -1,0 +1,5 @@
+--- a/docs/data-platform-tasks/tasks/DP-01.md
++++ b/docs/data-platform-tasks/tasks/DP-01.md
+@@ -3 +3 @@
+-阶段：工程基线。状态：READY，可交给 Antigravity。
++阶段：工程基线。状态：IN_REVIEW，等待 Codex review；构建及失败项见 [DP-01 交付报告](../reports/DP-01.md)。
